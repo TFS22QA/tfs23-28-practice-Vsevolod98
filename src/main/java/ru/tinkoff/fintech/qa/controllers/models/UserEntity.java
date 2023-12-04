@@ -7,11 +7,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 @ApiModel(description = "users")
 public class UserEntity {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity that)) return false;
+        return getId().equals(that.getId()) && getFio().equals(that.getFio()) && getPhone().equals(that.getPhone()) && getPasswordSeries().equals(that.getPasswordSeries()) && getPasswordNumber().equals(that.getPasswordNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFio(), getPhone(), getPasswordSeries(), getPasswordNumber());
+    }
+
     @Id
     @JsonProperty("id")
     Integer id;
